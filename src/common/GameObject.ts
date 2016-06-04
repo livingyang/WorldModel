@@ -1,15 +1,15 @@
-import Component = require('./Component');
-import World = require('./World');
+import {Component} from './Component';
+import {World} from './World';
+import {vec2, v2} from './vec2';
 
-class GameObject {
+export class GameObject {
     name: string;
     tag: string = '';
     parent: GameObject;
     children: GameObject[] = [];
     componentMap = {};
     world: World;
-    y: number = 0;
-    x: number = 0;
+    position = v2();
 
     constructor(name = '') {
         this.name = name;
@@ -52,7 +52,7 @@ class GameObject {
 
         this.parent = null;
         this.children = [];
-        
+
         for (let className in this.componentMap) {
             if (this.world != null) {
                 let component = this.componentMap[className];
@@ -132,5 +132,3 @@ class GameObject {
         }
     }
 }
-
-export = GameObject;

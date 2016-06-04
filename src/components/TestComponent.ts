@@ -1,4 +1,4 @@
-import Component = require('../common/Component');
+import {Component} from '../root';
 
 class TestComponent  extends Component {
 

@@ -10,6 +10,9 @@ describe 'GameObject', ->
     expect((new GameObject 'aaa').name).to.equal 'aaa'
     expect((new GameObject()).tag).to.equal ''
 
+    o = new GameObject()
+    expect(o.position).to.instanceof vec2
+
   it 'addComponent & getComponent & removeComponent', ->
     go = new GameObject()
     expect(go.getComponent 'GameObjectSpecComponent').to.be.null

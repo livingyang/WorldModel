@@ -2,7 +2,7 @@
 // class EventDispatcher
 // 事件处理类
 // ###
-class EventDispatcher {
+export class EventDispatcher {
     _oneEventInvokerMap = {};
     _eventInvokerMap = {};
 
@@ -61,5 +61,3 @@ class EventDispatcher {
         }
     }
 }
-
-export = EventDispatcher;

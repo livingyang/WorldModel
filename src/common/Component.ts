@@ -1,6 +1,6 @@
-import GameObject = require('./GameObject');
+import {GameObject} from './GameObject';
 
-class Component {
+export class Component {
     gameObject: GameObject;
 
     // # 用于保存Component的子类
@@ -46,5 +46,3 @@ class Component {
         return this.List[className];
     }
 }
-
-export = Component;

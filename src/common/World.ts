@@ -1,11 +1,11 @@
-import GameObject = require('./GameObject');
-import EventDispatcher = require('./EventDispatcher');
+import {GameObject} from './GameObject';
+import {EventDispatcher} from './EventDispatcher';
 
 // ###
 // 管理所有的 GameObject
 // 提供公共方法
 // ###
-class World {
+export class World {
     eventDispatcher: EventDispatcher;
     root: GameObject;
 
@@ -54,5 +54,3 @@ class World {
         }
     };
 }
-
-export = World;
