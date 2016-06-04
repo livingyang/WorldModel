@@ -5,4 +5,5 @@ function requireAll(requireContext) {
 declare function require(string);
 requireAll((require as any).context("./src", true, /^\.\/.*\.ts$/));
 
-export = require('./src/root.ts');
+import * as root from './src/root';
+export = root;
