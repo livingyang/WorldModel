@@ -127,8 +127,11 @@ export class GameObject {
             let component = this.componentMap[className];
             component.update(dt);
         }
+        
         for (let child of this.children) {
-            child.update(dt);
+            if (child != null) {
+                child.update(dt);
+            }
         }
     }
 }
