@@ -1,9 +1,16 @@
-import {Component} from '../root';
+import {Component} from '../common/Component';
 
-class TestComponent  extends Component {
+export class TestComponent extends Component {
 
+    // # 从属的 GameObject 添加到 World 上时调用
+    onEnable() {
+        this.trigger('OnTestComponentEnable', this);
+    }
+
+    // # 从属的 GameObject 从 World 移除时调用
+    onDisable() {
+        this.trigger('OnTestComponentDisable', this);
+    }
 }
 
 Component.addClass('TestComponent', TestComponent);
-
-export = TestComponent;

@@ -1,4 +1,5 @@
 import {GameObject} from './GameObject';
+import {Component} from './Component';
 import {EventDispatcher} from './EventDispatcher';
 
 // ###
@@ -19,9 +20,9 @@ export class World {
         return this.root.createChild(name);
     };
 
-    createGameObjectWithComponent(componentName) {
+    createGameObjectWithComponent(componentName: string) {
         let go = this.createGameObject(componentName);
-        return go.addComponent(componentName);
+        return go.addComponent(Component.getClass(componentName));
     };
 
     update(dt = 0) {

@@ -1,10 +1,4 @@
 describe 'GameObject', ->
-  before ->
-    class Component.List.GameObjectSpecComponent extends Component
-
-  after ->
-    delete Component.List.GameObjectSpecComponent
-
   it 'new', ->
     expect((new GameObject()).name).to.be.empty
     expect((new GameObject 'aaa').name).to.equal 'aaa'
@@ -15,18 +9,18 @@ describe 'GameObject', ->
 
   it 'addComponent & getComponent & removeComponent', ->
     go = new GameObject()
-    expect(go.getComponent 'GameObjectSpecComponent').to.be.null
+    expect(go.getComponent Component.getClass 'TestComponent').to.be.null
 
-    c = go.addComponent 'GameObjectSpecComponent'
-    expect(c).to.be.instanceof Component.List.GameObjectSpecComponent
-    expect(go.getComponent 'GameObjectSpecComponent').to.equal c
+    c = go.addComponent Component.getClass 'TestComponent'
+    expect(c).to.be.instanceof Component.getClass 'TestComponent'
+    expect(go.getComponent Component.getClass 'TestComponent').to.equal c
 
-    go.removeComponent 'GameObjectSpecComponent'
-    expect(go.getComponent 'GameObjectSpecComponent').to.be.null
+    go.removeComponent Component.getClass 'TestComponent'
+    expect(go.getComponent Component.getClass 'TestComponent').to.be.null
 
   it 'update', ->
     go = new GameObject()
-    c = go.addComponent 'GameObjectSpecComponent'
+    c = go.addComponent Component.getClass 'TestComponent'
 
     spy = sinon.spy c, 'update'
 

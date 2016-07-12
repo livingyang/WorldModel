@@ -7,9 +7,10 @@ export class GameObject {
     tag: string = '';
     parent: GameObject;
     children: GameObject[] = [];
-    componentMap = {};
     world: World;
     position = v2();
+
+    componentList: Component[] = [];
 
     constructor(name = '') {
         this.name = name;
@@ -53,9 +54,8 @@ export class GameObject {
         this.parent = null;
         this.children = [];
 
-        for (let className in this.componentMap) {
+        for (let component of this.componentList) {
             if (this.world != null) {
-                let component = this.componentMap[className];
                 component.onDisable();
             }
         }
@@ -76,32 +76,38 @@ export class GameObject {
         return false;
     }
 
-    addComponent(className) {
-        if (this.getComponent(className) != null) {
-            throw "GameObject#addComponent duplicate class#{className}"
-        }
-        let componentClass = Component.List[className];
-        if (componentClass != null) {
-            let c = this.componentMap[className] = new componentClass();
-            c.gameObject = this;
-            if (this.world != null) {
-                c.onEnable()
-            }
-            return c;
-        }
-        else
-            return null;
-    }
-
-    getComponent(className) {
-        return this.componentMap[className] || null;
-    }
-
-    removeComponent(className) {
+    addComponent<T extends Component>(component: {new(): T}): T {
+        let c = new component();
+        c.gameObject = this;
+        this.componentList.push(c);
         if (this.world != null) {
-            this.componentMap[className].onExit();
+            c.onEnable();
         }
-        delete this.componentMap[className];
+        return c;
+    }
+
+    getComponent<T extends Component>(component: {new(): T}): T {
+        for (let c of this.componentList) {
+            if (c instanceof component) {
+                return c;
+            }
+        }
+        return null;
+    }
+
+    removeComponent<T extends Component>(component: {new(): T}): T {
+        for (let i = 0; i < this.componentList.length; ++i) {
+            if (this.componentList[i] instanceof component) {
+                let c = this.componentList[i];
+                this.componentList.splice(i);
+                if (this.world != null) {
+                    c.onDisable();
+                }
+                return c as T;
+            }
+        }
+
+        return null;
     }
 
     cleanChildren() {
@@ -123,11 +129,10 @@ export class GameObject {
     update(dt) {
         this.cleanChildren();
 
-        for (let className in this.componentMap) {
-            let component = this.componentMap[className];
+        for (let component of this.componentList) {
             component.update(dt);
         }
-        
+
         for (let child of this.children) {
             if (child != null) {
                 child.update(dt);
