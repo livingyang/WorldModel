@@ -99,7 +99,7 @@ export class GameObject {
         for (let i = 0; i < this.componentList.length; ++i) {
             if (this.componentList[i] instanceof component) {
                 let c = this.componentList[i];
-                this.componentList.splice(i);
+                this.componentList.splice(i, 1);
                 if (this.world != null) {
                     c.onDisable();
                 }
@@ -111,19 +111,9 @@ export class GameObject {
     }
 
     cleanChildren() {
-        for (let child of this.children) {
-            // 如果有 null child，则进行清理
-            if (child == null) {
-                let children = [];
-                for (let child of this.children) {
-                    if (child != null) {
-                        children.push(child);
-                    }
-                }
-                this.children = children;
-                break;
-            }
-        }
+        this.children = this.children.filter((v, i, a) => {
+            return v != null;
+        });
     }
 
     update(dt) {

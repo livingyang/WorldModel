@@ -1,5 +1,5 @@
 import {GameObject} from './GameObject';
-import {Component} from './Component';
+import {Components} from './Component';
 import {EventDispatcher} from './EventDispatcher';
 
 // ###
@@ -22,7 +22,7 @@ export class World {
 
     createGameObjectWithComponent(componentName: string) {
         let go = this.createGameObject(componentName);
-        return go.addComponent(Component.getClass(componentName));
+        return go.addComponent(Components[componentName]);
     };
 
     update(dt = 0) {

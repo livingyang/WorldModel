@@ -2,10 +2,7 @@ import {GameObject} from './GameObject';
 
 export class Component {
     gameObject: GameObject;
-
-    // # 用于保存Component的子类
-    static List = {};
-    //
+    
     // # 从属的 GameObject 添加到 World 上时调用
     onEnable() { }
 
@@ -33,16 +30,14 @@ export class Component {
     trigger(event: string, ...params) {
         this.gameObject.world.trigger(event, ...params);
     }
-
-    static addClass(className, classDef) {
-        this.List[className] = classDef;
-    }
-
-    static removeClass(className) {
-        delete this.List[className];
-    }
-
-    static getClass(className) {
-        return this.List[className];
-    }
 }
+
+// Components，用于保存Component的子类，方便外部测试使用
+// 在内部，直接使用子类定义
+// 例（外部）：gameObject.addComponent Components.TestComponent
+// 例（内部）：gameObject.addComponent(TestComponent)
+interface ComponentClass {
+    new(): Component;
+}
+
+export var Components: {[id: string]: ComponentClass} = {};

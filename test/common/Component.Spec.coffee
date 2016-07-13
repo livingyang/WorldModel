@@ -1,10 +1,10 @@
 describe 'Component', ->
   it 'Component: 测试子类', ->
-    expect(Component.List).to.include.keys 'TestComponent'
+    expect(Components).to.include.keys 'TestComponent'
 
   it 'update', ->
     go = new GameObject()
-    c = go.addComponent Component.getClass 'TestComponent'
+    c = go.addComponent Components.TestComponent
 
     spy = sinon.spy c, 'update'
     go.update 0.1
@@ -16,7 +16,7 @@ describe 'Component', ->
       OnTestComponentEnable: spyEnable = sinon.spy()
       OnTestComponentDisable: spyDisable = sinon.spy()
     go = world.createGameObject()
-    c = go.addComponent Component.getClass 'TestComponent'
+    c = go.addComponent Components.TestComponent
 
     expect(spyEnable.callCount).to.equal 1
     expect(spyDisable.callCount).to.equal 0
@@ -36,7 +36,7 @@ describe 'Component', ->
     go = world.createGameObject()
     child = go.createChild()
 
-    c = child.addComponent Component.getClass 'TestComponent'
+    c = child.addComponent Components.TestComponent
 
     expect(spyEnable.callCount).to.equal 1
     expect(spyDisable.callCount).to.equal 0
@@ -51,7 +51,7 @@ describe 'Component', ->
   it 'on & off & one & trigger', ->
     world = new World()
     go = world.createGameObject()
-    c = go.addComponent Component.getClass 'TestComponent'
+    c = go.addComponent Components.TestComponent
 
     spy = sinon.spy c, 'update'
     spyOne = sinon.spy()

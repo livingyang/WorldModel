@@ -1,4 +1,4 @@
-import {Component} from '../common/Component';
+import {Component, Components} from '../common/Component';
 
 export class TestComponent extends Component {
 
@@ -13,4 +13,4 @@ export class TestComponent extends Component {
     }
 }
 
-Component.addClass('TestComponent', TestComponent);
+Components['TestComponent'] = TestComponent;

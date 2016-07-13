@@ -9,18 +9,26 @@ describe 'GameObject', ->
 
   it 'addComponent & getComponent & removeComponent', ->
     go = new GameObject()
-    expect(go.getComponent Component.getClass 'TestComponent').to.be.null
+    expect(go.getComponent Components.TestComponent).to.be.null
 
-    c = go.addComponent Component.getClass 'TestComponent'
-    expect(c).to.be.instanceof Component.getClass 'TestComponent'
-    expect(go.getComponent Component.getClass 'TestComponent').to.equal c
+    c1 = go.addComponent Components.TestComponent
+    expect(c1).to.be.instanceof Components.TestComponent
+    expect(go.getComponent Components.TestComponent).to.equal c1
 
-    go.removeComponent Component.getClass 'TestComponent'
-    expect(go.getComponent Component.getClass 'TestComponent').to.be.null
+    # 可以绑定多个同样的Component
+    c2 = go.addComponent Components.TestComponent
+    expect(c1).to.be.instanceof Components.TestComponent
+    expect(go.getComponent Components.TestComponent).to.equal c1
+
+    go.removeComponent Components.TestComponent
+    expect(go.getComponent Components.TestComponent).to.equal c2
+
+    go.removeComponent Components.TestComponent
+    expect(go.getComponent Components.TestComponent).to.be.null
 
   it 'update', ->
     go = new GameObject()
-    c = go.addComponent Component.getClass 'TestComponent'
+    c = go.addComponent Components.TestComponent
 
     spy = sinon.spy c, 'update'
 
