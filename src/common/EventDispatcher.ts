@@ -10,14 +10,9 @@ interface Invoker {
 
 export class EventDispatcher {
     _eventInvokerMap: {[id: string]: Invoker[]} = {};
-    _oneEventInvokerMap: {[id: string]: Function[]} = {};
 
     getInvokerList(event: string) {
         return this._eventInvokerMap[event] || [];
-    }
-
-    getOneInvokerList(event: string) {
-        return this._oneEventInvokerMap[event] || [];
     }
 
     // # 注册事件
@@ -43,30 +38,10 @@ export class EventDispatcher {
         }
     }
 
-    // # 注册运行一次的事件
-    one(event: string, handler: Function) {
-        if (handler == null) {
-            return;
-        }
-
-        if (this._oneEventInvokerMap[event] == null) {
-            this._oneEventInvokerMap[event] = [];
-        }
-
-        this._oneEventInvokerMap[event].push(handler);
-    }
-
     // # 触发事件
     trigger(event: string, ...params) {
-        // # trigger on event
         for (let invoker of this.getInvokerList(event)) {
             invoker.handler.call(invoker.target, ...params);
         }
-
-        // # trigger one event
-        for (let invoker of this.getOneInvokerList(event)) {
-            invoker(...params);
-        }
-        this._oneEventInvokerMap[event] = [];
     }
 }

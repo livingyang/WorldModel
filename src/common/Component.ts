@@ -23,10 +23,6 @@ export class Component {
         this.gameObject.world.off(event, target, handler);
     }
 
-    one(event: string, handler) {
-        this.gameObject.world.one(event, handler);
-    }
-
     trigger(event: string, ...params) {
         this.gameObject.world.trigger(event, ...params);
     }

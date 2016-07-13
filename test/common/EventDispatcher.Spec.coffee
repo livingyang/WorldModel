@@ -1,7 +1,7 @@
 class EventHandler
   onEvent: ->
   onDefaultEvent: ->
-    
+
 describe 'EventDispatcher', ->
   it 'init', ->
     dispatcher = new EventDispatcher()
@@ -54,18 +54,3 @@ describe 'EventDispatcher', ->
     dispatcher.off 'onDefaultEvent', handler
     dispatcher.trigger 'onDefaultEvent'
     expect(spy.callCount).to.equal 2
-
-  it 'one', ->
-    handler = new EventHandler()
-    spy = sinon.spy()
-
-    dispatcher = new EventDispatcher()
-    dispatcher.one 'event', spy
-
-    params = [1, '2', handler]
-    dispatcher.trigger 'event', params...
-    expect(spy.callCount).to.equal 1
-    expect(spy.calledWith params...).to.be.true
-
-    dispatcher.trigger 'event'
-    expect(spy.callCount).to.equal 1

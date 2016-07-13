@@ -29,18 +29,14 @@ describe 'World', ->
     world = new World()
 
     spy = sinon.spy world, 'update'
-    spyOne = sinon.spy()
     world.on 'event', world, spy
-    world.one 'event', spyOne
 
     world.trigger 'event'
     expect(spy.callCount).to.equal 1
     expect(spy.calledWith()).to.be.true
-    expect(spyOne.callCount).to.equal 1
 
     world.trigger 'event'
     expect(spy.callCount).to.equal 2
-    expect(spyOne.callCount).to.equal 1
 
     world.off 'event', world, spy
     world.trigger 'event'

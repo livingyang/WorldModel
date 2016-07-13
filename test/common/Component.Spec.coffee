@@ -48,24 +48,20 @@ describe 'Component', ->
     expect(spyDisable.callCount).to.equal 1
     expect(spyDisable.args[0]).to.deep.equal [c]
 
-  it 'on & off & one & trigger', ->
+  it 'on & off & trigger', ->
     world = new World()
     go = world.createGameObject()
     c = go.addComponent Components.TestComponent
 
     spy = sinon.spy c, 'update'
-    spyOne = sinon.spy()
     c.on 'event', c, spy
-    c.one 'event', spyOne
 
     c.trigger 'event'
     expect(spy.callCount).to.equal 1
     expect(spy.calledWith()).to.be.true
-    expect(spyOne.callCount).to.equal 1
 
     c.trigger 'event'
     expect(spy.callCount).to.equal 2
-    expect(spyOne.callCount).to.equal 1
 
     c.off 'event', c, spy
     c.trigger 'event'

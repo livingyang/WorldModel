@@ -51,10 +51,6 @@ export class World {
         this.eventDispatcher.off(event, target, handler);
     }
 
-    one(event: string, handler) {
-        this.eventDispatcher.one(event, handler);
-    }
-
     trigger(event: string, ...params) {
         this.eventDispatcher.trigger(event, ...params);
     }
