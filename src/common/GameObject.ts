@@ -59,6 +59,8 @@ export class GameObject {
                 component.onDisable();
             }
         }
+
+        this.componentList = [];
     }
 
     removeFromParent() {

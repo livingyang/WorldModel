@@ -2,7 +2,7 @@ import {GameObject} from './GameObject';
 
 export class Component {
     gameObject: GameObject;
-    
+
     // # 从属的 GameObject 添加到 World 上时调用
     onEnable() { }
 
